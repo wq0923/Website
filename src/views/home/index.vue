@@ -47,7 +47,6 @@
     </div>
 </template>
 <script>
-import { home } from '../../http/home';
 
 export default {
     name: "Home",
