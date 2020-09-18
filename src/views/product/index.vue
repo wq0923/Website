@@ -8,7 +8,7 @@
             <img src="../../../static/img/head-view/about-header-bg.jpg" width="100%" height="555px">
         </figure>
         <ul class="category" :class="{fix: fix}">
-            <li v-for="(item,index) in category" :key="index">
+            <li v-for="(item) in category" :key="item.kind">
                 <div class="outcircle" :style="{backgroundColor: item.color}" @click="selected(item)">
                     {{ item.title }}
                     <div class="incircle" :class="{active: active == item.title}"></div>
@@ -17,7 +17,7 @@
         </ul>
         <ul class="products">
             <transition-group enter-active-class="animated zoomInLeft" leave-active-class="animated zoomOutRight">
-                <li v-for="(item,index) in products" :key="index">
+                <li v-for="(item) in products" :key="item.id">
                     <router-link :to="'/product/'+item.id">
                         <img :src="'../../../static/img/product/'+ item.img" width="250px" height="250px" />
                     </router-link>
