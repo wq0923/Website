@@ -1,253 +1,56 @@
+<!--
+ * @Description: 
+ * @Author: wangqiao
+ * @Date: 2020-09-18 20:23:13
+ * @LastEditTime: 2020-09-25 16:22:25
+ * @FilePath: /Website/src/views/product/index.vue
+-->
 <template>
-    <div class="product">
-        <figure>
-            <figcaption>
-                <h1>产品中心</h1><br>
-                <p>强大产品矩阵，助力综合能源服务创新升级，如智能产品、能效产品、软件产品...</p>
-            </figcaption>
-            <img src="../../../static/img/head-view/about-header-bg.jpg" width="100%" height="555px">
-        </figure>
-        <ul class="category" :class="{fix: fix}">
-            <li v-for="(item) in category" :key="item.kind">
-                <div class="outcircle" :style="{backgroundColor: item.color}" @click="selected(item)">
-                    {{ item.title }}
-                    <div class="incircle" :class="{active: active == item.title}"></div>
-                </div>
-            </li>
-        </ul>
-        <ul class="products">
-            <transition-group enter-active-class="animated zoomInLeft" leave-active-class="animated zoomOutRight">
-                <li v-for="(item) in products" :key="item.id">
-                    <router-link :to="'/product/'+item.id">
-                        <img :src="'../../../static/img/product/'+ item.img" width="250px" height="250px" />
-                    </router-link>
-                    <div class="inner-text">
-                        <h4>{{ item.title }}</h4>
-                    </div>
-                </li>
-            </transition-group>
-        </ul>
+  <div class="contact-wrap">
+    <div class="top-box"></div>
+    <div class="content-box">
+      <img class="word-img" src="../../assets/images/history.png" alt />
+      <div>
+        <img class="find-more" src="../../assets/images/find-more.png" alt />
+      </div>
+      <img class="ma-small" src="../../assets/images/ma-banner-small.png" alt="">
     </div>
+  </div>
 </template>
 <script>
-export default {
-    name: 'product',
-    data(){
-        return {
-            active: '所有',
-            fix: false,
-            category: [
-                {
-                    kind: 0,
-                    title: '所有',
-                    color: '#2F4056'
-                },
-                {
-                    kind: 1,
-                    title: '智能产品',
-                    color: '#009688'
-                },
-                {
-                    kind: 2,
-                    title: '能效',
-                    color: '#5FB878'
-                },
-                {
-                    kind: 3,
-                    title: '新能源',
-                    color: '#ff8724'
-                }
-            ],
-            products: [
-                {
-                    id: 1,
-                    kind: 1,
-                    img: 'work01.jpg',
-                    title: '智能用电终端'
-                },
-                {
-                    id: 2,
-                    kind: 2,
-                    img: 'work02.jpg',
-                    title: 'NX301型电力能效监测终端'
-                },
-                {
-                    id: 3,
-                    kind: 3,
-                    img: 'work03.jpg',
-                    title: '优电宝-Ι节电器'
-                },
-                {
-                    id: 4,
-                    kind: 2,
-                    img: 'work04.jpg',
-                    title: '智慧水务管控一体化平台'
-                },
-                {
-                    id: 5,
-                    kind: 3,
-                    img: 'work05.jpg',
-                    title: '基于用户蓄电池分布式储能服务平台'
-                },
-                {
-                    id: 6,
-                    kind: 3,
-                    img: 'work06.jpg',
-                    title: '需求侧能源管控平台'
-                }
-            ],
-            copy_products: []
-        }
-    },
-    mounted(){
-        this.copy_products = JSON.parse(JSON.stringify(this.products));
-        this.$emit('headFix', ['absolute',true]);
-        window.addEventListener('scroll', this.handleScroll);
-    },
-    methods:{
-        selected(item){
-            this.active = item.title;
-            if(item.kind == 0){
-                this.products = this.copy_products;
-            }else {
-                this.products = this.copy_products.filter(it=>it.kind===item.kind);
-            }
-        },
-        handleScroll(){
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-            if(scrollTop >= 555){
-                this.fix = true;
-            }else {
-                this.fix = false;
-            }
-        }
-    }
-  
-}
+export default {};
 </script>
 <style lang="scss" scoped>
-    .product {
-        figure {
-            figcaption {
-                color: #ffffff;
-                text-align: left;
-                position: absolute;
-                left: 6%;
-                top: 30%;
-                h1 {
-                    font-size: 2.5rem;
-                }
-            }
-        }
-        .fix {
-            position: fixed;
-            left: 0;
-            top: 0;
-            right: 0;
-            z-index: 2;
-        }
-        .category {
-            height: 15vh;
-            padding: 1% 25% 0;
-            display: grid;
-            grid-template-columns: repeat(4, 25%);
-            background-color: rgba(0,0,0,.5);      // #393D49;
-            margin-top: -1%;
-            li {
-                position: relative;
-                .outcircle {
-                    width: 50%;
-                    height: 80%;
-                    border-radius: 50%;
-                    color: #ffffff;
-                    line-height: 12vh;
-                    position: relative;
-                    cursor: pointer;
-                    transition: all .5s;
-                    &:hover {
-                        width: 60%;
-                        height: 100%;
-                        line-height: 15vh;
-                        font-size: 18px;
-                    }
-                    .incircle {
-                        width: 80%;
-                        height: 80%;
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        right: 0;
-                        bottom: 0;
-                        border-radius: 50%;
-                        margin: auto;
-                        border: 0px solid transparent;
-                        &.active {
-                            color: rgba(255,255,255,.4);
-                            border: 3px solid rgba(255,255,255,.4);
-                            animation: self-zoomIn .5s linear;
-                        }
-                    }
-                }
-                
-            }
-
-        }
-        .products>span{
-            margin: 15vh auto;
-            width: 80%;
-            display: grid;
-            grid-template-columns: repeat(3, 33.33333%);
-            row-gap: 3%;
-            li {
-                position: relative;
-                overflow: hidden;
-                img {
-                    transition: all .5s ease-out;
-                }
-                &:hover img {
-                    opacity: 0.8;
-                }
-                &:hover .inner-text{
-                    visibility: visible;
-                    top: 78.5%;
-                }
-                .inner-text {
-                    position: absolute;
-                    left: 50%;
-                    right: 10%;
-                    top: 100%;
-                    transform: translateX(-50%);
-                    background: transparent;
-                    height: 20%;
-                    width: 250px;
-                    background-color: rgba(0,0,0,.5);
-                    color: #ffffff;
-                    visibility: hidden;
-                    transition: all .5s ease-out;
-                    h4 {
-                        margin-top: 5%;
-                    }
-                }
-            } 
-        }
-    }
-// 动画
-@keyframes self-zoomIn {
-  from {
-    border: 0px solid transparent;
-    transform: scale3d(0.3, 0.3, 0.3);
+.top-box {
+  height: 614px;
+  width: 100%;
+  background-image: url(../../assets/images/lu-banner.png);
+  background-repeat: no-repeat;
+  background-size: auto 532px;
+  background-position: center 91px;
+}
+.content-box {
+  padding-top: 55px;
+  text-align: center;
+  .word-img {
+    // background-color: #055761;
+    width: 979px;
+    height: 206px;
   }
-
-  50% {
-    border: 3px solid #ffffff;
+  &>div {
+    width: 979px;
+    margin: auto;
+    margin-top: 73px;
+    text-align: right;
   }
-
-  80% {
-    border: 3px solid #ffffff;
+  .find-more {
+    width: 83px;
+    height: 22px;
   }
-
-  100% {
-    border: 3px solid rgba(255,255,255,.4);
+  .ma-small {
+    width: 736px;
+    height: 201px;
+    margin: 107px 0 125px 0;
   }
 }
 </style>

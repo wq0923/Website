@@ -8,7 +8,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import aboutRoutes from './about'
+import contactRoutes from './contact'
 import customerRoutes from './customer'
 import homeRoutes from './home'
 import productRoutes from './product'
@@ -17,7 +17,7 @@ import errorRoutes from './error'
 
 Vue.use(Router)
 
-const children = [...aboutRoutes, ...customerRoutes, ...homeRoutes, ...productRoutes, ...solutionRoutes]
+const children = [...contactRoutes, ...customerRoutes, ...homeRoutes, ...productRoutes, ...solutionRoutes]
 
 const router = new Router({
   mode: 'history',

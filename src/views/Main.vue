@@ -2,24 +2,29 @@
  * @Description: 
  * @Author: wangqiao
  * @Date: 2020-09-18 10:04:44
- * @LastEditTime: 2020-09-18 18:36:23
+ * @LastEditTime: 2020-09-21 21:39:25
  * @FilePath: /Website/src/views/Main.vue
 -->
 <template>
-    <div>
+    <div class="wrap">
         <self-header></self-header>
-        <router-view @headFix="head_fix"></router-view>
+        <self-nav></self-nav>
+        <div style="margin-top: -300px">
+            <router-view @headFix="head_fix"></router-view>
+        </div>
         <self-footer></self-footer>
     </div>
 </template>
 <script>
 import selfHeader from '../components/Header'
 import selfFooter from '../components/Footer'
+import selfNav from '../components/Navs'
 
 export default {
     components:{
         selfHeader,
         selfFooter,
+        selfNav
     },
     data(){
         return {

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: wangqiao
  * @Date: 2020-09-18 10:04:44
- * @LastEditTime: 2020-09-18 18:38:07
+ * @LastEditTime: 2020-09-18 21:14:48
  * @FilePath: /Website/src/main.js
  */
 // The Vue build version to load with the `import` command
@@ -15,7 +15,7 @@ import ElementUI from 'element-ui'
 Vue.use(ElementUI)
 
 import 'element-ui/lib/theme-chalk/index.css'
-import './assets/fonts/iconfont.css'
+import './assets/style/common.css'
 
 import animated from 'animate.css'
 Vue.use(animated)

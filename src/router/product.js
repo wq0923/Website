@@ -1,9 +1,11 @@
 /*
- * @Description: '产品中心'页面所有路由
- * @Author: 任录
- * @Date: 2019-07-22 16:50:00
- * @LastEditTime: 2019-07-26 16:48:59
-*/
+ * @Description: 
+ * @Author: wangqiao
+ * @Date: 2020-09-18 20:23:13
+ * @LastEditTime: 2020-09-21 22:39:50
+ * @FilePath: /Website/src/router/product.js
+ */
+
 
 export default [
     {
