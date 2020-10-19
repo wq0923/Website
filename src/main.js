@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: wangqiao
  * @Date: 2020-09-18 10:04:44
- * @LastEditTime: 2020-09-18 21:14:48
+ * @LastEditTime: 2020-10-16 08:34:11
  * @FilePath: /Website/src/main.js
  */
 // The Vue build version to load with the `import` command
@@ -30,4 +30,14 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
+})
+
+router.beforeEach((to, from, next) => {
+  /* 路由发生变化修改页面title */
+  if (to.meta.nav) {
+    document.title = to.meta.nav
+  } else {
+    document.title = '马鹿池官网'
+  }
+  next()
 })

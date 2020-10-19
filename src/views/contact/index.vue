@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: wangqiao
  * @Date: 2020-09-18 20:23:13
- * @LastEditTime: 2020-09-21 20:51:47
+ * @LastEditTime: 2020-10-15 09:20:43
  * @FilePath: /Website/src/views/contact/index.vue
 -->
 <template>
@@ -27,7 +27,7 @@ export default {
   .top-box {
     height: 614px;
     width: 100%;
-    background-image: url(../../assets/images/contact-banner.png);
+    background-image: url('../../assets/images/banner/contact-banner.png');
     background-repeat: no-repeat;
     background-size: auto 532px;
     background-position: center 91px;

@@ -1,43 +1,36 @@
 <template>
-  <div class="nav-wrap content-box">
+  <div class="nav-wrap content-box" @mouseleave="tabDeActive">
     <div class="big-box" v-for="(item, index) in tabList" :key="item.id">
       <div class="split-box" v-if="index!==0">
         <div class="split"></div>
       </div>
+      <router-link :to="item.link">
       <div
         class="nav-box"
-        @click="changeTab(item,index)"
-        @mouseover.prevent="tabHover(index)"
-        @mouseleave.prevent="tabDeHover(index)"
+        @click="changeTab(index)"
+        @mouseover="tabActive(index)"
+        @mouseleave="tabDeActive(index)"
       >
         <div
           class="line"
-          :class="{active : active.startsWith(item.link), 'line-color': index === hoverIndex && !active.startsWith(item.link), 'line-no-color': index === lastHover && index != hoverIndex && !active.startsWith(item.link)}"
+          :class="{ active: index===activeIndex || index===curTab, 'line-color': index===activeIndex&&index!=curTab, 'line-no-color': index!=curTab&&index!=activeIndex}"
         ></div>
-        <div
-          class="nav-tab"
-        >
+        <div class="nav-tab">
           <div
             class="tab"
-            :class="{active : active.startsWith(item.link) || index === hoverIndex}"
+            :class="{ active: index===activeIndex }"
+            :style="{ 'border-left-width': index===0?'0':'0px'} "
           >{{ item.title }}</div>
         </div>
         <div
           class="sub-box"
-          :class="{'show-sub': index === hoverIndex, 'hide-sub': index === lastHover && index != hoverIndex}"
           v-if="item.subTitles"
+          :class="{'show-sub': index===activeIndex, 'hide-sub': index!=curTab&&index!=activeIndex}"
         >
-          <div
-            class="sub-title" 
-            :style="{color: sub.link === active ? '#fff' : '#000'}"
-            v-for="(sub) in item.subTitles" 
-            :key="sub.id"
-            @click.stop="goTo(sub.link)"
-          >
-            {{sub.title}}
-          </div>
+          <div class="sub-title" v-for="(sub) in item.subTitles" :key="sub.id">{{sub.title}}</div>
         </div>
       </div>
+      </router-link>
     </div>
     <img class="logo-img" src="../assets/images/logo.png" alt="logo" />
   </div>
@@ -45,16 +38,10 @@
 
 <style lang="scss" scoped>
 .line-color {
-  animation: lineColor 0.3s forwards;
-  -webkit-animation: lineColor 0.3s forwards; /*webkit*/
-  -moz-animation: lineColor 0.3s forwards;
-  -o-animation: lineColor 0.3s forwards;
-}
-.line-no-color {
-  animation: lineNoColor 0.3s forwards;
-  -webkit-animation: lineNoColor 0.3s forwards; /*webkit*/
-  -moz-animation: lineNoColor 0.3s forwards;
-  -o-animation: lineNoColor 0.3s forwards;
+  animation: lineColor 0.3s;
+  -webkit-animation: lineColor 0.3s; /*webkit*/
+  -moz-animation: lineColor 0.3s;
+  -o-animation: lineColor 0.3s;
 }
 .show-sub {
   animation: fadeIn 0.3s forwards;
@@ -82,22 +69,6 @@
   }
   to {
     background-color: #055761;
-  }
-}
-@-webkit-keyframes lineNoColor {
-  from {
-    background-color: #055761;
-    }
-  to {
-    background-color: #eeeeef;
-  }
-}
-@keyframes lineNoColor {
-  from {
-    background-color: #055761;
-    }
-  to {
-    background-color: #eeeeef;
   }
 }
 @-webkit-keyframes fadeIn {
@@ -160,7 +131,6 @@
   .split-box {
     padding-top: 29px;
     vertical-align: middle;
-    margin: 0 1px;
     .split {
       width: 1px;
       height: 16px;
@@ -173,6 +143,7 @@
     flex-direction: column;
     align-items: center;
     font-size: 0;
+    margin-right: 2px;
     .line {
       width: 100%;
       height: 4px;
@@ -184,7 +155,7 @@
     }
   }
   .nav-tab {
-    padding-top: 25px;
+    margin-top: 25px;
     font-size: 0;
     cursor: pointer;
     .active {
@@ -234,8 +205,8 @@ export default {
     return {
       curTab: 0,
       lastCurTab: 0,
-      lastHover: -1,
-      hoverIndex: -1,
+      lastActive: 0,
+      activeIndex: 0,
       active: '/home',
       tabList: [
         {
@@ -250,31 +221,31 @@ export default {
             {
               id: "101",
               title: "企业简介",
-              link: "/about",
+              path: "",
             },
             {
               id: "102",
               title: "组织架构",
-              link: "/about_framework",
+              path: "",
             },
             {
               id: "103",
               title: "发展历程",
-              link: "/about_history",
+              path: "",
             },
             {
               id: "104",
               title: "企业文化",
-              link: "/about_culture",
+              path: "",
             },
           ],
-          link: "/about",
+          link: "",
           id: "002",
           width: "123",
         },
         {
           title: "业务模块",
-          link: "/business",
+          link: "",
           id: "003",
           width: "107",
         },
@@ -284,12 +255,12 @@ export default {
             {
               id: "401",
               title: "马说",
-              link: "/product",
+              path: "/product",
             },
             {
               id: "402",
               title: "鹿曰",
-              link: "/product_deer",
+              path: "/product/detail",
             },
           ],
           link: "/product",
@@ -305,38 +276,21 @@ export default {
       ],
     };
   },
-  watch:{
-    $route(to,from){
-      this.active = this.$route.fullPath === '/' ? '/home' : this.$route.fullPath
-    }
-  },
+
   mounted(){
-    this.active = this.$route.fullPath === '/' ? '/home' : this.$route.fullPath
+    this.active = this.$route.fullPath
   },
   methods: {
-    changeTab(item, index) {
-      if(this.active.startsWith(item.link)) return
-      this.active = item.link
-      this.$router.push(item.link)
+    changeTab(index) {
+      [this.lastCurTab, this.curTab] = [this.curTab, index];
     },
-    goTo(link) {
-      if(link==this.active) return
-      this.$router.push(link)
+    tabActive(index) {
+      this.$nextTick(() => {
+        [this.lastActive, this.activeIndex] = [this.activeIndex, index];
+      });
     },
-    tabHover(index) {
-      if(index===this.hoverIndex) return
-      console.log('last',this.lastHover);
-      setTimeout(() => {
-        this.hoverIndex = index
-        console.log('hover',this.hoverIndex);
-      }, 20);
-    },
-    tabDeHover() {
-      this.lastHover = this.hoverIndex
-      setTimeout(() => {
-        this.hoverIndex = -1;
-        console.log('de hover',this.hoverIndex);
-      }, 10);
+    tabDeActive() {
+      this.activeIndex = -1;
     },
   },
 };

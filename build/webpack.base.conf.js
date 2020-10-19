@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: wangqiao
+ * @Date: 2020-09-18 20:23:13
+ * @LastEditTime: 2020-10-16 15:22:16
+ * @FilePath: /Website/build/webpack.base.conf.js
+ */
 'use strict'
 const path = require('path')
 const utils = require('./utils')
@@ -18,9 +25,10 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    publicPath: './',
+    // publicPath: process.env.NODE_ENV === 'production'
+    //   ? config.build.assetsPublicPath
+    //   : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],

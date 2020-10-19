@@ -2,33 +2,31 @@
  * @Description: 路由跳转控制中心
  * @Author: 任录
  * @Date: 2019-07-22 15:13:52
- * @LastEditTime: 2019-07-26 22:38:03
+ * @LastEditTime: 2020-10-16 15:26:58
 */
 
 import Vue from 'vue'
 import Router from 'vue-router'
 
 import contactRoutes from './contact'
-import customerRoutes from './customer'
+import aboutRoutes from './about'
 import homeRoutes from './home'
+import businessRoutes from './business'
 import productRoutes from './product'
-import solutionRoutes from './solution'
-import errorRoutes from './error'
 
 Vue.use(Router)
 
-const children = [...contactRoutes, ...customerRoutes, ...homeRoutes, ...productRoutes, ...solutionRoutes]
+const children = [...contactRoutes, ...aboutRoutes, ...homeRoutes, ...productRoutes, ...businessRoutes]
 
 const router = new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/',
       name: '',
       component: resolve => require(['@/views/Main'], resolve),
       children
-    },
-    ...errorRoutes
+    }
   ]
 })
 

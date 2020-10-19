@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: wangqiao
+ * @Date: 2020-09-18 20:23:13
+ * @LastEditTime: 2020-10-16 15:20:34
+ * @FilePath: /Website/config/index.js
+ */
 'use strict'
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
@@ -9,7 +16,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
     proxyTable: {
       '/wp-json': {
         target: 'http://localhost:7001',
